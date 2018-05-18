@@ -3,8 +3,10 @@ package views;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +16,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -38,10 +41,12 @@ public class MainFormController implements Initializable {
             game_field.addEventHandler(Event.ANY, new EventHandler<Event>() {
                 @Override
                 public void handle(Event event) {
-                   if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
-                       event.getTarget();
-                   }
-
+                    if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
+                        Node source = (Node) event.getSource();
+                        Integer colIndex = GridPane.getColumnIndex(source);
+                        Integer rowIndex = GridPane.getRowIndex(source);
+                        txt_score.setText(colIndex + " " + rowIndex);
+                    }
                 }
             });
 
